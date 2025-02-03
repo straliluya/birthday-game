@@ -13,23 +13,19 @@
       padding: 20px;
       margin: 0;
     }
-
     #game-container {
       max-width: 600px;
       margin: 0 auto;
     }
-
     .screen {
       display: none;
       opacity: 0;
       transition: opacity 0.5s ease-in-out;
     }
-
     .screen:target {
       display: block;
       opacity: 1;
     }
-
     button {
       background-color: #ff6f61;
       color: white;
@@ -40,9 +36,17 @@
       border-radius: 5px;
       margin-top: 20px;
     }
-
     button:hover {
       background-color: #ff4d3a;
+    }
+    /* Анимация для финального экрана */
+    @keyframes sparkle {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .sparkle {
+      animation: sparkle 2s infinite;
     }
   </style>
 </head>
@@ -54,31 +58,27 @@
       <p>Сегодня особенный день — твой день рождения 🎂✨. Я подготовил для тебя небольшое путешествие, чтобы показать, как сильно я тебя люблю ❤️.</p>
       <a href="#forest-screen"><button>Начать путешествие →</button></a>
     </div>
-
     <!-- Лес воспоминаний -->
     <div id="forest-screen" class="screen">
       <h1>Лес воспоминаний 🌳</h1>
       <p>Здесь живут наши самые теплые моменты. Знаешь, я часто вспоминаю наш первый разговор... он был таким искренним и в нем была рождены зачтки нашей истории Любви, но мы не понимали этого еще! 💭 </p>
       <a href="#river-screen"><button>Продолжить путь →</button></a>
     </div>
-
     <!-- Река нежности -->
     <div id="river-screen" class="screen">
       <h1>Река нежности 💧🌸</h1>
       <p>Эта река наполнена всеми теми чувствами, которые я испытываю к тебе. Ты — мой источник радости, тепла и вдохновения. Без тебя моя жизнь была бы как без воды в этой реке.</p>
       <a href="#castle-screen"><button>Перейти через реку →</button></a>
     </div>
-
     <!-- Замок любви -->
     <div id="castle-screen" class="screen">
       <h1>Замок любви 🏰❤️</h1>
       <p>Чтобы войти внутрь, ответь на вопрос: Что делает тебя самой особенной для меня?</p>
       <a href="#end-screen"><button>Все вышеперечисленное ❤️</button></a>
     </div>
-
     <!-- Финал -->
     <div id="end-screen" class="screen">
-      <h1>Поздравляю! 🎉</h1>
+      <h1 class="sparkle">Поздравляю! 🎉</h1>
       <p>
         С днём рождения! 🎉<br>
         Ты — самое прекрасное, что случилось со мной!!!<br><br>
@@ -92,5 +92,27 @@
       </p>
     </div>
   </div>
+
+  <!-- Подключение библиотеки Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    // Запуск анимации конфетти при открытии финального экрана
+    document.addEventListener('DOMContentLoaded', () => {
+      const endScreen = document.getElementById('end-screen');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            confetti({
+              particleCount: 100,
+              spread: 70,
+              origin: { y: 0.6 },
+              colors: ['#FF6F61', '#FFD700', '#FF4D3A', '#FFFFFF']
+            });
+          }
+        });
+      });
+      observer.observe(endScreen);
+    });
+  </script>
 </body>
 </html>
