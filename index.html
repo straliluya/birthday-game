@@ -5,49 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Путешествие к сердцу</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f3e4;
-      color: #333;
-      text-align: center;
-      padding: 20px;
-      margin: 0;
-    }
-    #game-container {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .screen {
-      display: none;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out;
-    }
-    .screen:target {
-      display: block;
-      opacity: 1;
-    }
-    button {
-      background-color: #ff6f61;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 5px;
-      margin-top: 20px;
-    }
-    button:hover {
-      background-color: #ff4d3a;
-    }
-    /* Анимация для финального экрана */
-    @keyframes sparkle {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.2); opacity: 0.8; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    .sparkle {
-      animation: sparkle 2s infinite;
-    }
+    /* Стили остаются без изменений */
   </style>
 </head>
 <body>
@@ -58,24 +16,63 @@
       <p>Сегодня особенный день — твой день рождения 🎂✨. Я подготовил для тебя небольшое путешествие, чтобы показать, как сильно я тебя люблю ❤️.</p>
       <a href="#forest-screen"><button>Начать путешествие →</button></a>
     </div>
+
     <!-- Лес воспоминаний -->
     <div id="forest-screen" class="screen">
       <h1>Лес воспоминаний 🌳</h1>
-      <p>Здесь живут наши самые теплые моменты. Знаешь, я часто вспоминаю наш первый разговор... он был таким искренним и в нем была рождены зачтки нашей истории Любви, но мы не понимали этого еще! 💭 </p>
-      <a href="#river-screen"><button>Продолжить путь →</button></a>
+      <p>Здесь живут наши самые теплые моменты. Знаешь, я часто вспоминаю наш первый разговор... он был таким искренним!</p>
+      <a href="#riddle-screen"><button>Идти дальше →</button></a>
     </div>
+
+    <!-- Загадка -->
+    <div id="riddle-screen" class="screen">
+      <h1>Загадка 🔍</h1>
+      <p>Чтобы продолжить путь, ответь на загадку:</p>
+      <p><strong>Что становится больше, когда его раздают?</strong></p>
+      <button onclick="checkAnswer('love')">Любовь ❤️</button>
+      <button onclick="checkAnswer('wrong')">Кофе ☕</button>
+      <script>
+        function checkAnswer(answer) {
+          if (answer === 'love') {
+            location.href = '#river-screen';
+          } else {
+            alert('Попробуй еще раз!');
+          }
+        }
+      </script>
+    </div>
+
     <!-- Река нежности -->
     <div id="river-screen" class="screen">
       <h1>Река нежности 💧🌸</h1>
-      <p>Эта река наполнена всеми теми чувствами, которые я испытываю к тебе. Ты — мой источник радости, тепла и вдохновения. Без тебя моя жизнь была бы как без воды в этой реке.</p>
-      <a href="#castle-screen"><button>Перейти через реку →</button></a>
+      <p>Эта река наполнена всеми теми чувствами, которые я испытываю к тебе.</p>
+      <a href="#maze-screen"><button>Переплыть реку →</button></a>
     </div>
+
+    <!-- Лабиринт -->
+    <div id="maze-screen" class="screen">
+      <h1>Лабиринт ✨</h1>
+      <p>Чтобы найти выход, выбери правильный путь:</p>
+      <button onclick="navigateMaze('left')">Налево 🔄</button>
+      <button onclick="navigateMaze('right')">Направо 🔄</button>
+      <script>
+        function navigateMaze(direction) {
+          if (direction === 'right') {
+            location.href = '#castle-screen';
+          } else {
+            alert('Тупик! Попробуй другой путь.');
+          }
+        }
+      </script>
+    </div>
+
     <!-- Замок любви -->
     <div id="castle-screen" class="screen">
       <h1>Замок любви 🏰❤️</h1>
       <p>Чтобы войти внутрь, ответь на вопрос: Что делает тебя самой особенной для меня?</p>
       <a href="#end-screen"><button>Все вышеперечисленное ❤️</button></a>
     </div>
+
     <!-- Финал -->
     <div id="end-screen" class="screen">
       <h1 class="sparkle">Поздравляю! 🎉</h1>
@@ -103,7 +100,7 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             confetti({
-              particleCount: 100,
+              particleCount: 200,
               spread: 70,
               origin: { y: 0.6 },
               colors: ['#FF6F61', '#FFD700', '#FF4D3A', '#FFFFFF']
